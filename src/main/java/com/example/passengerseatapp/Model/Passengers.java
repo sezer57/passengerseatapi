@@ -15,10 +15,12 @@ public class Passengers {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @OneToOne
-    @JoinColumn(name = "passenger_id", referencedColumnName = "id")
-    private Seats seats;
-
-    private int name;
+    private String name;
     private int tc;
+
+    public Passengers( String name, int tc) {
+
+        this.name = name;
+        this.tc = tc;
+    }
 }

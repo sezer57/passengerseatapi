@@ -15,12 +15,24 @@ public class Seats {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @OneToOne(mappedBy = "seats")
-    private Passengers passengers;
+    private int rows;
+    private int columns;
+    private String seatsIsTaken;
+    public Seats(){};
+    public Seats( int row, int column, String seatsIsTaken) {
 
-    private int row;
-    private int column;
-    boolean seatsIsTaken;
+        this.rows = row;
+        this.columns = column;
+        this.seatsIsTaken = seatsIsTaken;
+    }
 
-
+    @Override
+    public String toString() {
+        return "{" +
+                "id=" + id +
+                ", rows=" + rows +
+                ", columns=" + columns +
+                ", seatsIsTaken='" + seatsIsTaken + '\'' +
+                '}';
+    }
 }
