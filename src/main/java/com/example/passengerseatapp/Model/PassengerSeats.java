@@ -16,6 +16,15 @@ public class PassengerSeats {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @OneToOne
+    private Passengers passengers;
 
+    @OneToOne
+    private Seats seats;
 
+    public PassengerSeats(){}
+    public PassengerSeats(Passengers passengers, Seats seats) {
+        this.passengers = passengers;
+        this.seats = seats;
+    }
 }

@@ -6,8 +6,6 @@ import com.example.passengerseatapp.Repository.SeatsRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class SeatsSevice {
@@ -25,5 +23,13 @@ public class SeatsSevice {
 
     public Seats findSeatsById(Integer id) {
         return seatsRepo.findById(id).orElse(null);
+    }
+
+    public String findSeatsBy_r_c_istaken(int rows, int columns){
+        Seats a =seatsRepo.findByRowsAndColumns(rows,columns);
+        return a.getSeatsIsTaken();
+    }
+    public Seats findSeatsBy_r_c(int rows,int columns){
+        return seatsRepo.findByRowsAndColumns(rows,columns);
     }
 }

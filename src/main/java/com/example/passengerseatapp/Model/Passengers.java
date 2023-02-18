@@ -18,6 +18,7 @@ public class Passengers {
     private String name;
     private int tc;
 
+    public Passengers(){}
     public Passengers( String name, int tc) {
 
         this.name = name;

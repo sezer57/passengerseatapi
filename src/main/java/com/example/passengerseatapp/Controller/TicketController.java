@@ -1,33 +1,62 @@
 package com.example.passengerseatapp.Controller;
 
+import com.example.passengerseatapp.Dto.CreatePassengerRequest;
+import com.example.passengerseatapp.Model.PassengerSeats;
+import com.example.passengerseatapp.Model.Passengers;
 import com.example.passengerseatapp.Model.Seats;
+import com.example.passengerseatapp.Service.PassengerSeatService;
+import com.example.passengerseatapp.Service.PassengerService;
 import com.example.passengerseatapp.Service.SeatsSevice;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
-@RequestMapping("/v1/seats")
+@RequestMapping("/v1/ticket")
 public class TicketController {
     private final SeatsSevice seatsSevice;
+    private final PassengerSeatService passengerSeatService;
+    private final PassengerService passengerService;
 
-    public TicketController(SeatsSevice seatsSevice) {
+    public TicketController(SeatsSevice seatsSevice, PassengerSeatService passengerSeatService, PassengerService passengerService) {
         this.seatsSevice = seatsSevice;
+        this.passengerSeatService = passengerSeatService;
+        this.passengerService = passengerService;
     }
 
-    @GetMapping
+    @GetMapping("/seats")
     public ResponseEntity<List> getseats(){
         return ResponseEntity.ok(seatsSevice.findAll());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Seats> getseats(@PathVariable Integer id){
-        return ResponseEntity.ok(seatsSevice.findSeatsById(id));
+    @GetMapping("/passengers")
+    public ResponseEntity<List> getpassengers(){
+        return ResponseEntity.ok(passengerService.findAll());
+    }
+
+    @GetMapping("/passengers_seats")
+    public ResponseEntity<List> getpassengerseats(){
+        return ResponseEntity.ok(passengerSeatService.findAll());
+    }
+
+    @PostMapping("/passenger/add")
+    public ResponseEntity<PassengerSeats> create(@RequestBody CreatePassengerRequest createPassengerRequest){
+        if(seatsSevice.findSeatsBy_r_c(createPassengerRequest.getRow_s(), createPassengerRequest.getColumns_s())==null)
+        {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, " not found"
+            );
+        }
+        else if(seatsSevice.findSeatsBy_r_c_istaken(createPassengerRequest.getRow_s(), createPassengerRequest.getColumns_s()).equals("yes"))
+        {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "is taken"
+            );
+        }
+        return ResponseEntity.ok(passengerSeatService.create(createPassengerRequest));
     }
 
 }
