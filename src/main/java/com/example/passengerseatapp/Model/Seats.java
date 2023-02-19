@@ -15,14 +15,13 @@ public class Seats {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private int rows;
-    private int columns;
+    private int numbers;
     private String seatsIsTaken;
     public Seats(){};
-    public Seats( int row, int column, String seatsIsTaken) {
+    public Seats( int numbers, String seatsIsTaken) {
 
-        this.rows = row;
-        this.columns = column;
+        this.numbers = numbers;
+
         this.seatsIsTaken = seatsIsTaken;
     }
 
@@ -30,8 +29,7 @@ public class Seats {
     public String toString() {
         return "{" +
                 "id=" + id +
-                ", rows=" + rows +
-                ", columns=" + columns +
+                ", numbers=" + numbers +
                 ", seatsIsTaken='" + seatsIsTaken + '\'' +
                 '}';
     }

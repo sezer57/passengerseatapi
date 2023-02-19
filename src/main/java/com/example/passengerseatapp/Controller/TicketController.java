@@ -1,6 +1,8 @@
 package com.example.passengerseatapp.Controller;
 
 import com.example.passengerseatapp.Dto.CreatePassengerRequest;
+import com.example.passengerseatapp.Dto.PassengerDto;
+import com.example.passengerseatapp.Dto.PassengerSeatsDto;
 import com.example.passengerseatapp.Model.PassengerSeats;
 import com.example.passengerseatapp.Model.Passengers;
 import com.example.passengerseatapp.Model.Seats;
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/v1/ticket")
 public class TicketController {
@@ -33,8 +35,8 @@ public class TicketController {
     }
 
     @GetMapping("/passengers")
-    public ResponseEntity<List> getpassengers(){
-        return ResponseEntity.ok(passengerService.findAll());
+    public ResponseEntity<List<PassengerDto>> getpassengers(){
+        return ResponseEntity.ok(passengerService.findPassAsDto());
     }
 
     @GetMapping("/passengers_seats")
@@ -43,14 +45,14 @@ public class TicketController {
     }
 
     @PostMapping("/passenger/add")
-    public ResponseEntity<PassengerSeats> create(@RequestBody CreatePassengerRequest createPassengerRequest){
-        if(seatsSevice.findSeatsBy_r_c(createPassengerRequest.getRow_s(), createPassengerRequest.getColumns_s())==null)
+    public ResponseEntity<PassengerSeatsDto> create(@RequestBody CreatePassengerRequest createPassengerRequest){
+        if(seatsSevice.findSeatsBy_number(createPassengerRequest.getNumbers())==null)
         {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, " not found"
             );
         }
-        else if(seatsSevice.findSeatsBy_r_c_istaken(createPassengerRequest.getRow_s(), createPassengerRequest.getColumns_s()).equals("yes"))
+        else if(seatsSevice.findSeatsBy_number_istaken(createPassengerRequest.getNumbers()).equals("yes"))
         {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "is taken"

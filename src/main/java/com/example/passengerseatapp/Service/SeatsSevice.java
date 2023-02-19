@@ -25,11 +25,11 @@ public class SeatsSevice {
         return seatsRepo.findById(id).orElse(null);
     }
 
-    public String findSeatsBy_r_c_istaken(int rows, int columns){
-        Seats a =seatsRepo.findByRowsAndColumns(rows,columns);
+    public String findSeatsBy_number_istaken(int numbers){
+        Seats a =seatsRepo.findByNumbers(numbers);
         return a.getSeatsIsTaken();
     }
-    public Seats findSeatsBy_r_c(int rows,int columns){
-        return seatsRepo.findByRowsAndColumns(rows,columns);
+    public Seats findSeatsBy_number(int numbers){
+        return seatsRepo.findByNumbers(numbers);
     }
 }
