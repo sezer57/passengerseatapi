@@ -38,13 +38,28 @@ __GET__ /v1/ticket/seats__<br>
 ## For create passenger and take seat:
 
 __POST__ /v1/ticket/passenger/add<br>
-Content-Type: application/json
+Content-Type: application/json<br>
 ```
 {
     "name":"aaaa",
     "tc":"111111111",
     "numbers":"12"
 }
+```
+Response
+```
+   {
+    "id": 1,
+    "passengerDto": {
+        "id": 1,
+        "name": "aaaa"
+    },
+    "seats": {
+        "id": 12,
+        "numbers": 12,
+        "seatsIsTaken": "yes"
+    }
+
 ```
 
 ## For get passenger:
