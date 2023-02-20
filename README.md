@@ -1,5 +1,7 @@
 # Passenger Seat API
-The Passenger Seat API is a RESTful API created with Spring Boot, PostgreSQL, and Java that allows developers to manage passenger seat reservations for a transportation service. With this API, you can easily create and view passenger seat reservations.
+The Passenger Seat API is a RESTful API created with Spring Boot, PostgreSQL, and Java that allows developers to manage passenger seat reservations for a transportation service. With this API, you can easily create and view passenger seat reservations.<br/><br/>
+***Frontend repository*** [Ticket-ui](https://github.com/sezer57/ticket-ui)
+
 
 # Database Model Diagram
 ![diagram](https://user-images.githubusercontent.com/36985898/220201936-679ab498-8bc2-4449-b70e-8e2993a49e8f.jpg)
@@ -11,7 +13,7 @@ __GET__ /v1/ticket/passengers<br>
 __GET__ /v1/ticket/passengers_seats<br>
 ## Retrieve a list of all available seats:
 
-__GET__ /v1/ticket/seats__<br>
+***__GET__ /v1/ticket/seats<br>***
 ```
 [
     {
@@ -37,8 +39,8 @@ __GET__ /v1/ticket/seats__<br>
 
 ## For create passenger and take seat:
 
-__POST__ /v1/ticket/passenger/add<br>
-Content-Type: application/json<br>
+***__POST__ /v1/ticket/passenger/add<br>***
+***Content-Type: application/json<br>***
 ```
 {
     "name":"aaaa",
@@ -46,7 +48,7 @@ Content-Type: application/json<br>
     "numbers":"12"
 }
 ```
-Response
+***Response***
 ```
    {
     "id": 1,
@@ -63,7 +65,7 @@ Response
 ```
 
 ## For get passenger:
-__GET__ /v1/ticket/passengers
+***__GET__ /v1/ticket/passengers***
 ```
    [
     {
@@ -76,12 +78,12 @@ __GET__ /v1/ticket/passengers
     }
 }
 ```
-Note:not include tc for security
+***Note:not include tc for security***
 
 
 ## For get passenger and seats together:
 
-__GET__ /v1/ticket/passengers_seats
+***__GET__ /v1/ticket/passengers_seats***
 ```
 [
     {
